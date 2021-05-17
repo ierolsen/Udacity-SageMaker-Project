@@ -81,9 +81,9 @@ def train(model, train_loader, epochs, optimizer, loss_fn, device):
             # clear the gradients of all optimized variables
             optimizer.zero_grad()
             # forward: compute predicted outputs by passing inputs to the model
-            output = model(data)
+            output = model(batch_X)
             # calculate the loss
-            loss = criterion(output, target)
+            loss = loss_fn(output, batch_y)
             # backward: compute gradient of the loss with respect to model parameters
             loss.backward()
             # perform a single optimization step (parameter update)
@@ -91,7 +91,7 @@ def train(model, train_loader, epochs, optimizer, loss_fn, device):
             # update running training loss
             train_loss += loss.item()*data.size(0)
             
-        print(f"Epoch: {epoch}, BCELoss: {total_loss / len(train_loader)}")
+        print(f"Epoch: {epoch}, BCELoss: {train_loss / len(train_loader)}")
 
 
 if __name__ == '__main__':
